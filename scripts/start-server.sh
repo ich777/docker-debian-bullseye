@@ -14,6 +14,12 @@ fi
 if [ ! -f ${DATA_DIR}/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml ]; then
 	cp /tmp/config/xsettings.xml ${DATA_DIR}/.config/xfce4/xfconf/xfce-perchannel-xml/
 fi
+if [ ! -d ${DATA_DIR}/.config/xfce4/terminal ]; then
+	mkdir -p ${DATA_DIR}/.config/xfce4/terminal
+fi
+if [ ! -f ${DATA_DIR}/.config/xfce4/terminal/terminalrc ]; then
+	cp /tmp/config/terminalrc ${DATA_DIR}/.config/xfce4/terminal/terminalrc
+fi
 if [ ! -d ${DATA_DIR}/.logs ]; then
 	mkdir ${DATA_DIR}/.logs
 fi
