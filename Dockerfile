@@ -7,8 +7,10 @@ RUN export TZ=Europe/Rome && \
 	apt-get update && \
 	ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
 	echo $TZ > /etc/timezone && \
-	DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends man-db hdparm udev whiptail reportbug init vim-common iproute2 nano gdbm-l10n less iputils-ping netcat-traditional perl bzip2 gettext-base manpages file liblockfile-bin python3-reportbug libnss-systemd isc-dhcp-common systemd-sysv xz-utils perl-modules debian-faq wamerican bsdmainutils systemd cpio logrotate traceroute dbus kmod isc-dhcp-client telnet krb5-locales lsof debconf-i18n cron ncurses-term iptables ifupdown procps rsyslog apt-utils netbase pciutils bash-completion vim-tiny groff-base apt-listchanges bind9-host doc-debian libpam-systemd openssh-client xfce4 xorg dbus-x11 sudo gvfs-backends gvfs-common gvfs-fuse gvfs firefox-esr at-spi2-core gpg-agent mousepad xarchiver sylpheed unzip gtk2-engines-pixbuf gnome-themes-standard lxtask xfce4-terminal p7zip unrar curl msttcorefonts xfce4-screenshooter binutils gedit && \
-	apt-get remove xterm
+	DEBIAN_FRONTEND=noninteractive apt-get -y install --no-install-recommends man-db hdparm udev whiptail reportbug init vim-common iproute2 nano gdbm-l10n less iputils-ping netcat-traditional perl bzip2 gettext-base manpages file liblockfile-bin python3-reportbug libnss-systemd isc-dhcp-common systemd-sysv xz-utils perl-modules debian-faq wamerican bsdmainutils systemd cpio logrotate traceroute dbus kmod isc-dhcp-client telnet krb5-locales lsof debconf-i18n cron ncurses-term iptables ifupdown procps rsyslog apt-utils netbase pciutils bash-completion vim-tiny groff-base apt-listchanges bind9-host doc-debian libpam-systemd openssh-client xfce4 xorg dbus-x11 sudo gvfs-backends gvfs-common gvfs-fuse gvfs firefox-esr at-spi2-core gpg-agent mousepad xarchiver sylpheed unzip gtk2-engines-pixbuf gnome-themes-standard lxtask xfce4-terminal p7zip unrar curl msttcorefonts xfce4-screenshooter binutils gedit zip && \
+	apt-get -y remove xterm && \
+	apt-get -y autoremove && \
+	rm -rf /var/lib/apt/lists/*
 
 RUN cd /tmp && \
 	wget -O /tmp/axiom.tar.gz https://git.minenet.at/ich777/docker-debian-bullseye/raw/branch/master/90145-axiom.tar.gz && \
@@ -19,7 +21,6 @@ RUN cd /tmp && \
 	wget -O /usr/share/locale/translation.7z https://git.minenet.at/ich777/docker-debian-bullseye/raw/branch/master/translations.7z && \
 	p7zip -d -f /usr/share/locale/translation.7z && \
 	chmod -R 755 /usr/share/locale/ && \
-	rm -rf /var/lib/apt/lists/* && \
 	sed -i '/    document.title =/c\    document.title = "DebianBullseye - noVNC";' /usr/share/novnc/app/ui.js && \
 	mkdir /tmp/config && \
 	rm /usr/share/novnc/app/images/icons/*
