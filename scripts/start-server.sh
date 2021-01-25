@@ -64,8 +64,6 @@ echo "---Starting noVNC server---"
 websockify -D --web=/usr/share/novnc/ --cert=/etc/ssl/novnc.pem ${NOVNC_PORT} localhost:${RFB_PORT}
 sleep 2
 
-sleep infinity
-
 echo "---Starting Desktop---"
 if [ "${DEV}" == "true" ]; then
 	xfce4-session
