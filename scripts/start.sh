@@ -41,6 +41,26 @@ else
 	echo "---Locales set correctly, continuing---"
 fi
 
+echo "---Checking configuration for noVNC---"
+if [ -z "${NOVNC_RESIZE}" ]; then
+	sed -i "/        UI.initSetting('resize',/c\        UI.initSetting('resize', 'off');" /usr/share/novnc/app/ui.js
+else
+	echo "---Setting noVNC resizing to: ${NOVNC_RESIZE}"
+	sed -i "/        UI.initSetting('resize',/c\        UI.initSetting('resize', '${NOVNC_RESIZE}');" /usr/share/novnc/app/ui.js
+fi
+if [ -z "${NOVNC_QUALITY}" ]; then
+	sed -i "/        UI.initSetting('quality',/c\        UI.initSetting('quality', 6);" /usr/share/novnc/app/ui.js
+else
+	echo "---Setting noVNC quality to: ${NOVNC_QUALITY}"
+	sed -i "/        UI.initSetting('quality',/c\        UI.initSetting('quality', ${NOVNC_QUALITY});" /usr/share/novnc/app/ui.js
+fi
+if [ -z "${NOVNC_COMPRESSION}" ]; then
+	sed -i "/        UI.initSetting('compression',/c\        UI.initSetting('compression', 2);" /usr/share/novnc/app/ui.js
+else
+	echo "---Setting noVNC compression to: ${NOVNC_COMPRESSION}"
+	sed -i "/        UI.initSetting('compression',/c\        UI.initSetting('compression', ${NOVNC_COMPRESSION});" /usr/share/novnc/app/ui.js
+fi
+
 echo "---Starting...---"
 rm -R ${DATA_DIR}/.dbus/session-bus/* 2> /dev/null
 if [ ! -d /var/run/dbus ]; then
