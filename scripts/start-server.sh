@@ -44,7 +44,7 @@ find ${DATA_DIR}/.logs -name "x11vncLog.*" -exec rm -f {} \;
 echo "---Checking for old lock files---"
 rm -rf /tmp/.X99*
 rm -rf /tmp/.X11*
-rm -rf ${DATA_DIR}/.vnc/*.log
+rm -rf ${DATA_DIR}/.vnc/*.log ${DATA_DIR}/.vnc/*.pid 
 chmod -R ${DATA_PERM} ${DATA_DIR}
 screen -wipe 2&>/dev/null
 find /var/run/dbus -name "pid" -exec rm -f {} \;
