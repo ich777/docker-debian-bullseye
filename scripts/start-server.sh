@@ -55,13 +55,8 @@ else
 fi
 sleep 2
 
-echo "---Starting Xvfb server---"
-screen -S Xvfb -L -Logfile ${DATA_DIR}/.logs/XvfbLog.0 -d -m /opt/scripts/start-Xvfb.sh
-sleep 2
-
-echo "---Starting x11vnc server---"
-screen -S x11vnc -L -Logfile ${DATA_DIR}/.logs/x11vncLog.0 -d -m /opt/scripts/start-x11.sh
-sleep 2
+echo "---Starting TurboVNC server---"
+vncserver -geometry ${CUSTOM_RES_W}x${CUSTOM_RES_H} -depth ${CUSTOM_DEPTH} :99 -rfbport ${RFB_PORT} -noxstartup ${TURBOVNC_PARAMS}
 
 echo "---Starting noVNC server---"
 websockify -D --web=/usr/share/novnc/ --cert=/etc/ssl/novnc.pem ${NOVNC_PORT} localhost:${RFB_PORT}
