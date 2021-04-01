@@ -25,13 +25,6 @@ RUN cd /tmp && \
 	mkdir /tmp/config && \
 	rm /usr/share/novnc/app/images/icons/*
 
-RUN cd /tmp && \
-	wget -O /tmp/turbovnc.deb https://sourceforge.net/projects/turbovnc/files/2.2.6/turbovnc_2.2.6_amd64.deb/download && \
-	dpkg -i /tmp/turbovnc.deb && \
-	rm -rf /opt/TurboVNC/java /opt/TurboVNC/README.txt && \
-	cp -R /opt/TurboVNC/* / && \
-	rm -rf /opt/TurboVNC
-
 ENV DATA_DIR=/debian
 ENV FORCE_UPDATE=""
 ENV CUSTOM_RES_W=1280
