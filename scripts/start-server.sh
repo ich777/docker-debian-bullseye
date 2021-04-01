@@ -1,6 +1,7 @@
 #!/bin/bash
 export DISPLAY=:99
 export XDG_RUNTIME_DIR=/tmp/xdg
+export XAUTHORITY=${DATA_DIR}/.Xauthority
 export LANGUAGE="$LOCALE_USR"
 export LANG="$LOCALE_USR"
 
