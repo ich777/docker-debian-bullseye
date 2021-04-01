@@ -46,6 +46,9 @@ rm -rf /tmp/.X99*
 rm -rf /tmp/.X11*
 rm -rf ${DATA_DIR}/.vnc/*.log ${DATA_DIR}/.vnc/*.pid 
 chmod -R ${DATA_PERM} ${DATA_DIR}
+if [ -f ${DATA_DIR}/.vnc/passwd ]; then
+	chmod 600 ${DATA_DIR}/.vnc/passwd
+fi
 screen -wipe 2&>/dev/null
 find /var/run/dbus -name "pid" -exec rm -f {} \;
 
