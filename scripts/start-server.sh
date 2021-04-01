@@ -42,8 +42,8 @@ echo "---Checking for old logfiles---"
 find ${DATA_DIR}/.logs -name "XvfbLog.*" -exec rm -f {} \;
 find ${DATA_DIR}/.logs -name "x11vncLog.*" -exec rm -f {} \;
 echo "---Checking for old lock files---"
-find /tmp -name ".X99*" -exec rm -f {} \; > /dev/null 2>&1
-find /tmp -name ".X11*" -exec rm -f {} \; > /dev/null 2>&1
+rm -rf /tmp/.X99*
+rm -rf /tmp/.X11*
 chmod -R ${DATA_PERM} ${DATA_DIR}
 screen -wipe 2&>/dev/null
 find /var/run/dbus -name "pid" -exec rm -f {} \;
