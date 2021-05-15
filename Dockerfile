@@ -13,12 +13,12 @@ RUN export TZ=Europe/Rome && \
 	rm -rf /var/lib/apt/lists/*
 
 RUN cd /tmp && \
-	wget -O /tmp/axiom.tar.gz https://git.minenet.at/ich777/docker-debian-bullseye/raw/branch/master/90145-axiom.tar.gz && \
+	wget -O /tmp/axiom.tar.gz https://github.com/ich777/docker-debian-bullseye/raw/master/90145-axiom.tar.gz && \
 	tar -xvf /tmp/axiom.tar.gz && \
 	mv /tmp/axiomd /usr/share/themes/ && \
 	rm -R /tmp/axiom* && \
 	cd /usr/share/locale && \
-	wget -O /usr/share/locale/locale.7z https://git.minenet.at/ich777/docker-debian-bullseye/raw/branch/master/locale.7z && \
+	wget -O /usr/share/locale/locale.7z https://github.com/ich777/docker-debian-bullseye/raw/master/locale.7z && \
 	p7zip -d -f /usr/share/locale/locale.7z && \
 	chmod -R 755 /usr/share/locale/ && \
 	sed -i '/    document.title =/c\    document.title = "DebianBullseye - noVNC";' /usr/share/novnc/app/ui.js && \
