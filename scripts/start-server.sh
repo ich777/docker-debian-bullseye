@@ -6,37 +6,7 @@ export LANGUAGE="$LOCALE_USR"
 export LANG="$LOCALE_USR"
 
 echo "---Preparing Server---"
-if [ ! -d ${DATA_DIR}/.config/xfce4/xfconf/xfce-perchannel-xml/ ]; then
-	mkdir -p ${DATA_DIR}/.config/xfce4/xfconf/xfce-perchannel-xml/
-fi
-if [ ! -f ${DATA_DIR}/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml ]; then
-	cp /tmp/config/xfce4-desktop.xml ${DATA_DIR}/.config/xfce4/xfconf/xfce-perchannel-xml/
-fi
-if [ ! -f ${DATA_DIR}/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml ]; then
-	cp /tmp/config/xfce4-panel.xml ${DATA_DIR}/.config/xfce4/xfconf/xfce-perchannel-xml/
-fi
-if [ ! -f ${DATA_DIR}/.config/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml ]; then
-	cp /tmp/config/xsettings.xml ${DATA_DIR}/.config/xfce4/xfconf/xfce-perchannel-xml/
-fi
-if [ ! -d ${DATA_DIR}/.config/xfce4/panel ]; then
-	cp -R /tmp/config/panel ${DATA_DIR}/.config/xfce4/
-fi
-if [ ! -d ${DATA_DIR}/.config/xfce4/terminal ]; then
-	mkdir -p ${DATA_DIR}/.config/xfce4/terminal
-fi
-if [ ! -f ${DATA_DIR}/.config/xfce4/terminal/terminalrc ]; then
-	cp /tmp/config/terminalrc ${DATA_DIR}/.config/xfce4/terminal/terminalrc
-fi
-if [ ! -d ${DATA_DIR}/.logs ]; then
-	mkdir ${DATA_DIR}/.logs
-fi
-if [ ! -d ${DATA_DIR}/.local/share/applications ]; then
-	mkdir -p ${DATA_DIR}/.local/share/applications
-fi
-if [ ! -f ${DATA_DIR}/.local/share/applications/x11vnc.desktop  ]; then
-	cp /usr/share/applications/x11vnc.desktop ${DATA_DIR}/.local/share/applications/
-	echo "Hidden=true" >> ${DATA_DIR}/.local/share/applications/x11vnc.desktop
-fi
+
 
 echo "---Checking for old logfiles---"
 find ${DATA_DIR}/.logs -name "XvfbLog.*" -exec rm -f {} \;
@@ -68,6 +38,9 @@ sleep 2
 echo "---Starting noVNC server---"
 websockify -D --web=/usr/share/novnc/ --cert=/etc/ssl/novnc.pem ${NOVNC_PORT} localhost:${RFB_PORT}
 sleep 2
+
+echo "---Container under Construction...---"
+sleep infinity
 
 echo "---Starting Desktop---"
 if [ "${DEV}" == "true" ]; then
