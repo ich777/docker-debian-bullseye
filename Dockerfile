@@ -1,9 +1,8 @@
-FROM ich777/novnc-baseimage:bullseye
+FROM ich777/novnc-baseimage
 
 LABEL maintainer="admin@minenet.at"
 
 RUN export TZ=Europe/Rome && \
-	sed -i '/deb http:\/\/deb.debian.org\/debian bullseye main/c\deb http:\/\/deb.debian.org\/debian bullseye main non-free contrib' /etc/apt/sources.list && \
 	apt-get update && \
 	ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && \
 	echo $TZ > /etc/timezone && \
