@@ -1,4 +1,6 @@
 #!/bin/bash
+
+sleep infinity
 export DISPLAY=:99
 export XDG_RUNTIME_DIR=/tmp/xdg
 export XAUTHORITY=${DATA_DIR}/.Xauthority
