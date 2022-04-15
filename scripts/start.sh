@@ -1,7 +1,8 @@
 #!/bin/bash
-echo "---Checking if UID: ${UID} matches user---"
+echo "---Ensuring UID: ${UID} matches user---"
 usermod -u ${UID} ${USER}
-echo "---Checking if GID: ${GID} matches user---"
+echo "---Ensuring GID: ${GID} matches user---"
+groupmod -g ${GID} ${USER} > /dev/null 2>&1 ||:
 usermod -g ${GID} ${USER}
 echo "---Setting umask to ${UMASK}---"
 umask ${UMASK}
@@ -10,12 +11,15 @@ echo "root:${ROOT_PWD}" | chpasswd
 export ROOT_PWD="secret"
 
 echo "---Checking for optional scripts---"
-if [ -f /opt/scripts/user.sh ]; then
-	echo "---Found optional script, executing---"
-    chmod +x /opt/scripts/user.sh
-    /opt/scripts/user.sh
+cp -f /opt/custom/user.sh /opt/scripts/start-user.sh > /dev/null 2>&1 ||:
+cp -f /opt/scripts/user.sh /opt/scripts/start-user.sh > /dev/null 2>&1 ||:
+
+if [ -f /opt/scripts/start-user.sh ]; then
+    echo "---Found optional script, executing---"
+    chmod -f +x /opt/scripts/start-user.sh.sh ||:
+    /opt/scripts/start-user.sh || echo "---Optional Script has thrown an Error---"
 else
-	echo "---No optional script found, continuing---"
+    echo "---No optional script found, continuing---"
 fi
 
 if [ ! -d /tmp/xdg ]; then
@@ -44,7 +48,7 @@ fi
 echo "---Checking configuration for noVNC---"
 novnccheck
 
-echo "---Starting...---"
+echo "---Taking ownership of data...---"
 rm -R ${DATA_DIR}/.dbus/session-bus/* 2> /dev/null
 if [ ! -d /var/run/dbus ]; then
 	mkdir -p /var/run/dbus
@@ -64,6 +68,7 @@ chown -R ${UID}:${GID} ${DATA_DIR}
 chown -R ${UID}:${GID} /tmp/config
 chown -R ${UID}:${GID} /mnt/
 
+echo "---Starting...---"
 term_handler() {
 	export DISPLAY=:99 && su ${USER} -c "xfce4-session-logout --halt"
 	tail --pid="$(pidof xfce4-session)" -f 2>/dev/null
