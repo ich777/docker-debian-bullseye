@@ -35,7 +35,7 @@ RUN wget -O /usr/share/keyrings/element-io-archive-keyring.gpg https://packages.
 RUN mkdir -p /tmp/rustdesk && \
 	RUSTDESK_V="$(wget -qO- https://api.github.com/repos/rustdesk/rustdesk/releases/latest | grep tag_name | cut -d '"' -f4)" && \
 	wget -O /tmp/rustdesk/rustdesk.tar.zst https://github.com/rustdesk/rustdesk/releases/download/${RUSTDESK_V}/rustdesk-${RUSTDESK_V}-0-x86_64.pkg.tar.zst && \
-	tar -C /tmp/rustdesk -xvf /tmp/rustdesk/rustdesk.tar.zst && \
+	tar -C /tmp/rustdesk/ -xvf /tmp/rustdesk/rustdesk.tar.zst && \
 	mv /tmp/rustdesk/usr/lib/rustdesk /opt/ && mv /tmp/rustdesk/usr/share/rustdesk/files/rustdesk.png /opt/rustdesk && \
 	mv /tmp/rustdesk/usr/share/rustdesk/files/rustdesk.desktop /usr/share/applications/ && \
 	sed -i "/^Icon=/c\Icon=\/opt\/rustdesk\/rustdesk.png" /usr/share/applications/rustdesk.desktop && \
